@@ -1,0 +1,37 @@
+
+planning.txt
+
+- game development
+  - focus on the minimal functionality before adding fancy stuff
+- milestone 1
+  - git repo
+    - initial coding - html, JS, CSS)
+      - player class (good because we store information and functionality)
+        - position
+          - horizontal position X
+          - vertical position Y
+        - size
+          -  create dynamically
+        - functionality
+          - method move left
+          - method move right
+          - methods
+            - addEventlistener
+            - storing the modified position in the browser with CSS
+      - decide if player goes right/left
+        - detect keyboard events (pressing the keyboard)
+- milestone 2
+  - obstacles appearing in the UI
+  - obstacles move
+  - detection if there is a collision
+- milestone 3
+  - make the game more interesting
+  - limitation left/right
+- wishlist
+  - gameover
+  - start button
+  - restart button
+  - multiple lives
+    - score
+    - shooting
+    - background music
