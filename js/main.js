@@ -42,7 +42,7 @@ class Player {
 
     moveLeft(){
         if (this.positionX > 0){
-            this.positionX -= 1;
+            this.positionX -= 3;
             // this line above is only to check the code in the console
             this.domElement.style.left = this.positionX + "vw";
         }
@@ -50,7 +50,7 @@ class Player {
 
     moveRight(){
         if (this.positionX < 100){
-            this.positionX += 1;
+            this.positionX += 3;
             // this line above is only to check the code in the console
             this.domElement.style.left = this.positionX + "vw";
             //updating the position in CSS???
@@ -58,10 +58,53 @@ class Player {
     }
 }
 
+class Obstacle {
+    constructor() {
+        this.width = 20;
+        this.height = 10;
+        this.positionX = 50 - (this.width /2);
+        this.positionY = 85;
+
+        this.domElement = null;
+        this.createDomElement();
+    }
+
+    createDomElement(){
+        // step1: create the element:
+        this.domElement = document.createElement('div');
+
+        // step2: add content or modify (ex. innerHTML...)
+        this.domElement.className = "obstacle";
+        this.domElement.style.width = this.width + "vw";
+        this.domElement.style.height = this.height + "vh";
+        this.domElement.style.bottom = this.positionY + "vh";
+        this.domElement.style.left = this.positionX + "vw";
+
+        //step3: append to the dom: `parentElm.appendChild()`
+        const boardElm = document.getElementById("board");
+        boardElm.appendChild(this.domElement);
+    }
+
+    moveDown(){
+        // logic:
+            //first, we have info stored in the code (class, constructor)
+            // second, we modify the info of the class (here in the method)
+        
+        this.positionY -= 1;    
+            // third, we update the info in CSS (DOM), i.e. we reflect the changes
+        this.domElement.style.bottom = this.positionY + "vh";
+        }
+    }
+
+
 ///////////////////////////////////
 
-const player = new Player;
+const player = new Player();
+const obstacles = [];
 
+const obstacle1 = new Obstacle();
+
+//Attach event listeners
  document.addEventListener('keydown', event => {
     // this is function notices when an event happen, i.e. the user presses 
     // a button on the keyboard
@@ -74,3 +117,44 @@ const player = new Player;
     }
     // before, we found this code on StackOverFlow
 });
+
+// Create obstacles
+setInterval(() => {
+    const newObstacle = new Obstacle();
+    obstacles.push(newObstacle);
+}, 3000);
+
+
+let time = 0;
+
+//Move obstacles & detect collision
+setInterval(() => {
+    
+    time++;
+    // Create obstacles
+    // time will be increased by one and if it hits 10 a new obstacle will 
+    if(time % 10 === 0){
+        const newObstacle = new Obstacle();
+        obsArr.push(newObstacle);
+    }
+
+    obstacles.forEach( (obstacleInstance) => {
+
+    //move current obstacle
+    obstacleInstance.moveDown();
+
+    const isCollision = player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
+    player.positionX + player.width > obstacleInstance.positionX &&
+    player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
+    player.height + player.positionY > obstacleInstance.positionY
+
+    //detect if there's a collision between player and current obstacle
+    // --> player vs. obstacleInstance
+    if (isCollision) {
+        console.log("collision detected!!");
+        // game over
+    }
+
+
+    });
+}, 50)

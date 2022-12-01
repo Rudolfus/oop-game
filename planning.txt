@@ -4,9 +4,9 @@ planning.txt
 - game development
   - focus on the minimal functionality before adding fancy stuff
 - milestone 1
-  - git repo
-    - initial coding - html, JS, CSS)
-      - player class (good because we store information and functionality)
+  [x] git repo
+  [x] initial coding - html, JS, CSS)
+  [x]  player class (good because we store information and functionality)
         - position
           - horizontal position X
           - vertical position Y
@@ -22,6 +22,14 @@ planning.txt
         - detect keyboard events (pressing the keyboard)
 - milestone 2
   - obstacles appearing in the UI
+  - Obstacle Class
+    - width
+    - height
+    - domElement
+    - position (x, y)
+    - methods
+      - moveDown()
+      - createDomElement()
   - obstacles move
   - detection if there is a collision
 - milestone 3

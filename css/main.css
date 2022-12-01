@@ -19,3 +19,8 @@ body {
     detect collisions*/
     /*position goes to JS too because it changes*/
 }
+
+.obstacle{
+    position: absolute;
+    background-color: rgb(247, 70, 126);
+}
