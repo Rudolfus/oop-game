@@ -63,7 +63,7 @@ class Obstacle {
         this.width = 20;
         this.height = 10;
         this.positionX = 50 - (this.width /2);
-        this.positionY = 85;
+        this.positionY = 100;
 
         this.domElement = null;
         this.createDomElement();
