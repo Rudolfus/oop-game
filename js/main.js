@@ -42,7 +42,7 @@ class Player {
 
     moveLeft(){
         if (this.positionX > 0){
-            this.positionX -= 5;
+            this.positionX -= 1;
             // this line above is only to check the code in the console
             this.domElement.style.left = this.positionX + "vw";
         }
@@ -50,7 +50,7 @@ class Player {
 
     moveRight(){
         if (this.positionX < 100){
-            this.positionX += 5;
+            this.positionX += 1;
             // this line above is only to check the code in the console
             this.domElement.style.left = this.positionX + "vw";
             //updating the position in CSS???
