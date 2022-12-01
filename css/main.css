@@ -1,3 +1,21 @@
 body {
-    background-color: rgb(24, 91, 185);
+    margin: 0;
+    padding: 0;
+}
+
+#board{
+    height: 100vh;
+    /* viewport height = the height of the your
+    screen*/
+    position: relative;
+    background-color: #7F5BEB;
+    
+}
+
+#player{
+    position: absolute;
+    background-color: rgb(255, 192, 33);
+    /*the size will be in JS because we need to
+    detect collisions*/
+    /*position goes to JS too because it changes*/
 }
