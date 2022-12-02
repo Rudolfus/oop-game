@@ -9,7 +9,7 @@ body {
     screen*/
     position: relative;
     background-color: #7F5BEB;
-    
+    overflow: hidden;
 }
 
 #player{

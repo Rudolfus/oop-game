@@ -1,9 +1,97 @@
+class Game {
+  constructor() {
+    this.player = null; // null = pointing nowhere for now
+    this.obstacles = []; // will hold instancen sof the class obstacles
+  }
+
+  start() {
+    this.player = new Player(); // you can also do it in the class Game
+    this.attachEventListeners();
+
+    // Create obstacles
+    setInterval(() => {
+      const newObstacle = new Obstacle();
+      this.obstacles.push(newObstacle);
+    }, 2750);
+
+    // let time = 0;
+
+    // updating obstacles: Move obstacles & detect collision
+    setInterval(() => {
+      // time++;
+      // // Create obstacles
+      // // time will be increased by one and if it hits 10 a new obstacle will
+      // if (time % 10 === 0) {
+      //   const obstacleInstance = new Obstacle();
+      //   obstacles.push(obstacleInstance);
+      // }
+
+      this.obstacles.forEach((obstacleInstance) => {
+        //move current obstacle
+        obstacleInstance.moveDown();
+
+        // detect collisison with curernt obstacle
+        this.detectCollision(obstacleInstance);
+
+        // check if we need to remove the obstacle
+        this.removeObstacleIfOutside(obstacleInstance);
+      });
+    }, 50);
+
+    setInterval; // chronometer
+  }
+
+  attachEventListeners() {
+    // "keydown" means pressing any key
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        this.player.moveLeft();
+      } else if (event.key === "ArrowRight") {
+        this.player.moveRight();
+      }
+    });
+  }
+
+  detectCollision(obstacleInstance) {
+    //detect if there's a collision between player and current obstacle
+    const isCollision =
+      this.player.positionX <
+        obstacleInstance.positionX + obstacleInstance.width &&
+      this.player.positionX + this.player.width > obstacleInstance.positionX &&
+      this.player.positionY <
+        obstacleInstance.positionY + obstacleInstance.height &&
+      this.player.height + this.player.positionY > obstacleInstance.positionY;
+
+    if (isCollision) {
+      console.log("collision detected!!");
+      //location.href ="https://media.tenor.com/Lhlq72-SMvYAAAAC/lost-the.gif";
+    }
+  }
+
+  removeObstacleIfOutside(obstacleInstance) {
+    // ckecking if obstacle has moved out of screen
+    if (obstacleInstance.positionY <= 0 - obstacleInstance.height) {
+      console.log(
+        "remove obstacle with position ...",
+        obstacleInstance.positionY
+      );
+
+      obstacleInstance.domElement.remove();
+      this.obstacles.shift();
+      // console.log(obstacles);
+    }
+  }
+  // pause() {
+  //   // pausing the chronometer
+  // }
+}
+
 class Player {
   constructor() {
     this.width = 10;
     this.height = 10;
     this.positionX = 50 - this.width / 2; // 50% = middle of the screen
-    this.positionY = 0;
+    this.positionY = 1;
 
     this.domElement = null; // null = pointing to "nowhere", will be aded a value later
     // when we need a variable that needs to be accessed from multiple places, we store it
@@ -41,7 +129,7 @@ class Player {
 
   moveLeft() {
     if (this.positionX > 0) {
-      this.positionX -= 3;
+      this.positionX -= 1;
       // this line above is only to check the code in the console
       this.domElement.style.left = this.positionX + "vw";
     }
@@ -49,7 +137,7 @@ class Player {
 
   moveRight() {
     if (this.positionX < 100) {
-      this.positionX += 3;
+      this.positionX += 1;
       // this line above is only to check the code in the console
       this.domElement.style.left = this.positionX + "vw";
       //updating the position in CSS???
@@ -62,7 +150,8 @@ class Obstacle {
     this.width = 20;
     this.height = 10;
     this.positionX = 50 - this.width / 2;
-    this.positionY = 100;
+    // TODO random start between 0 - 100-20
+    this.positionY = 90;
 
     this.domElement = null;
     this.createDomElement();
@@ -95,61 +184,7 @@ class Obstacle {
   }
 }
 
-///////////////////////////////////
+/////////////////////////////////// beginning of globale scope ///////////////////////////////////
 
-const player = new Player();
-const obstacles = [];
-
-const obstacle1 = new Obstacle();
-
-//Attach event listeners
-document.addEventListener("keydown", (event) => {
-  // this is function notices when an event happen, i.e. the user presses
-  // a button on the keyboard
-  if (event.key === "ArrowLeft") {
-    // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-    player.moveLeft();
-    // if the player presses the ArrowLeft, the function to move left will
-    // be called on the player (the instance of the class Player)
-  } else if (event.key === "ArrowRight") {
-    player.moveRight();
-  }
-  // before, we found this code on StackOverFlow
-});
-
-// Create obstacles
-setInterval(() => {
-  const newObstacle = new Obstacle();
-  obstacles.push(newObstacle);
-}, 3000);
-
-// let time = 0;
-
-//Move obstacles & detect collision
-setInterval(() => {
-//   time++;
-//   // Create obstacles
-//   // time will be increased by one and if it hits 10 a new obstacle will
-//   if (time % 10 === 0) {
-//     const obstacleInstance = new Obstacle();
-//     obstacles.push(obstacleInstance);
-//   }
-
-  obstacles.forEach((obstacleInstance) => {
-    //move current obstacle
-    obstacleInstance.moveDown();
-
-    const isCollision =
-      player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
-      player.positionX + player.width > obstacleInstance.positionX &&
-      player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
-      player.height + player.positionY > obstacleInstance.positionY;
-
-    //detect if there's a collision between player and current obstacle
-    // --> player vs. obstacleInstance
-    if (isCollision) {
-      console.log("collision detected!!");
-      // game over
-    }
-  });
-}, 50);
+const game = new Game();
+game.start();
